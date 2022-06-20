@@ -34,7 +34,7 @@
 			<br>
 			<div style="width:90%; text-align:center;">
 				<button type="button" id="btnSave" class="btn btn-sm btn-primary">확인</button>
-				<button type="button" class="btn btn-sm btn-primary" onClick="location.href='/page/board'">취소</button>
+				<button type="button" class="btn btn-sm btn-primary" onClick="location.href='/board/board'">취소</button>
 			</div>
 		</form>
 	</div>

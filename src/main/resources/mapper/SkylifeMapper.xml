@@ -12,4 +12,38 @@
 		select count(*) from member
 		where id=#{id}
 	</select>
+	<select id="login" resultType="com.skylife_Transformation.domain.Skylife">
+		select * from member where id=#{id}
+	</select>
+
+	<select id="emailhave" resultType="int">
+		select count(*) from member where email=#{email}
+	</select>
+	<update id="memUpdate" parameterType="com.skylife_Transformation.domain.Skylife">
+		update member
+		set name = #{name}, phone = #{phone}
+		where id = #{id}
+	</update>
+	<select id="getPW" parameterType="com.skylife_Transformation.domain.Skylife" resultType="String">
+		select pw from member where id=#{id}
+	</select>
+	<update id="memPWUpdate" parameterType="com.skylife_Transformation.domain.Skylife">
+		update member set pw=#{pw} where id=#{id}
+	</update>
+
+	<select id="findPw" parameterType="String" resultType="com.skylife_Transformation.domain.Skylife">
+		select * from member where email = #{email}
+	</select>
+
+	<update id="updatePW" parameterType="com.skylife_Transformation.domain.Skylife">
+		update member set pw=#{pw} where email = #{email}
+	</update>
+
+	<select id="findID" parameterType="String" resultType="String">
+		select * from member where email = #{email}
+	</select>
+
+	<delete id="delete">
+		delete from member where id = #{id}
+	</delete>
 </mapper>

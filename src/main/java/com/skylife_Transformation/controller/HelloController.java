@@ -9,8 +9,8 @@ public class HelloController {
         @GetMapping("/")
         public String home() throws Exception {
             return "/fs/flight";
-
         }
+
         @GetMapping("/page/index")
         public String index() throws Exception {
             return "/fs/flight";

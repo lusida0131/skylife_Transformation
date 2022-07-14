@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import lombok.AllArgsConstructor;
 
 @Controller
-//@Log4j
 @AllArgsConstructor
 @Slf4j
 @RequestMapping

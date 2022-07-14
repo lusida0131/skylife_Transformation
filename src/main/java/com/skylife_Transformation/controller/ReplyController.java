@@ -1,6 +1,7 @@
 package com.skylife_Transformation.controller;
 
 import java.util.List;
+
 import com.skylife_Transformation.domain.Criteria;
 import com.skylife_Transformation.domain.ReplyPageDTO;
 import com.skylife_Transformation.domain.ReplyVO;
@@ -26,18 +27,17 @@ public class ReplyController {
 
 	@Autowired
 	private ReplyService service;
-	
+
 	// 댓글 페이징
-	@GetMapping(value = "/replies/pages/{b_num}/{page}", produces = { MediaType.APPLICATION_XML_VALUE,
-			MediaType.APPLICATION_JSON_VALUE })
+	@GetMapping(value = "/replies/pages/{b_num}/{page}")
 	public ResponseEntity<ReplyPageDTO> getList(
 			@PathVariable("page") int page, @PathVariable("b_num") Integer b_num) {
 
 		log.info("getList............");
 		Criteria cri = new Criteria(page, 10);
-		log.info(String.valueOf(cri));
-		
-		return new ResponseEntity<ReplyPageDTO>(service.getListPage(cri, b_num), HttpStatus.OK);
+//		log.info(String.valueOf(cri));
+
+		return new ResponseEntity<>(service.getListPage(cri, b_num), HttpStatus.OK);
 	}
 	
 	// 댓글 등록
@@ -74,8 +74,6 @@ public class ReplyController {
 	@RequestMapping(value="/replies/update", method=RequestMethod.POST) //댓글 수정  
     @ResponseBody
     private int mCommentServiceUpdateProc(@RequestParam int r_num, @RequestParam String r_content) throws Exception{
-		
-		
         ReplyVO comment = new ReplyVO();
         comment.setR_num(r_num);
         comment.setR_content(r_content);

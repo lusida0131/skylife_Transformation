@@ -1,7 +1,6 @@
 package com.skylife_Transformation.domain;
 
 
-import lombok.Data;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import lombok.Getter;

@@ -4,6 +4,7 @@ import com.skylife_Transformation.domain.Skylife;
 import com.skylife_Transformation.mapper.SkylifeMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
@@ -16,9 +17,15 @@ public class SkylifeServiceImpl implements SkylifeService {
 	@Autowired
 	private SkylifeMapper mapper;
 
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 	// 회원가입
 	@Override
 	public Skylife register(Skylife skylife) {
+		String rawPassword = skylife.getPw();
+		String encodePassword = bCryptPasswordEncoder.encode(rawPassword);
+		skylife.setPw(encodePassword);
 		mapper.register(skylife);
 		return skylife;
 	}

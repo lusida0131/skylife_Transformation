@@ -1,15 +1,15 @@
 package com.skylife_Transformation.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 
 @Data
-@NoArgsConstructor
+@Builder
 public class Skylife {
-    private int bno;
     private String id;
     private String pw;
     private String name;

@@ -1,9 +1,12 @@
 package com.skylife_Transformation.db;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+@SpringBootTest
 public class MyBatisTest {
     // MySQL Connector 의 클래스. DB 연결 드라이버 정의
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";

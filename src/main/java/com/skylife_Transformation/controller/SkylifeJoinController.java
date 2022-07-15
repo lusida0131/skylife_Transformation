@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCrypt;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -39,8 +38,7 @@ public class SkylifeJoinController {
 	@Autowired
 	private SkylifeMapper skylifeMapper;
 
-	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
 	// 약관동의 폼
 	@GetMapping("/auth/joinAgree")
@@ -57,9 +55,6 @@ public class SkylifeJoinController {
 	// 회원 가입 폼
 	@PostMapping("/auth/joinForm")
 	public String joinForm(Skylife skylife, RedirectAttributes redirectAttributes) {
-		String rawPassword = skylife.getPw();
-		String encodePassword = bCryptPasswordEncoder.encode(rawPassword);
-		skylife.setPw(encodePassword);
 		service.register(skylife);
 		redirectAttributes.addFlashAttribute("msg", "REGISTERED");
 		return "redirect:/auth/loginForm";
@@ -84,7 +79,7 @@ public class SkylifeJoinController {
 	}
 	
 	// 로그아웃 
-	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	@GetMapping("/logout")
 	public String logout(HttpSession session) throws Exception {
     	log.info("logout user: " + session.getAttribute("user"));
 		session.invalidate();
@@ -93,7 +88,7 @@ public class SkylifeJoinController {
 	}
 
 	// 아이디 중복 체크
-	@RequestMapping(value = "/idCheck", method = RequestMethod.GET, produces = "application/text; charset=utf8")
+	@GetMapping(value = "/idCheck")
 	@ResponseBody
 	public String idCheck(HttpServletRequest request) {
 
@@ -103,7 +98,7 @@ public class SkylifeJoinController {
 	}
 
 	//***************** 이메일 중복체크 **********************
-	@RequestMapping(value = "/emailhave", method = RequestMethod.GET, produces = "application/text; charset=utf8")
+	@GetMapping("/emailhave")
 	@ResponseBody
 	public String emailhave(HttpServletRequest request) {
 
@@ -119,7 +114,7 @@ public class SkylifeJoinController {
 	}
 
 	// 회원 가입 이메일 전송
-	@RequestMapping(value = "/auth/mailCheck", method = RequestMethod.GET)
+	@GetMapping("/auth/mailCheck")
 	@ResponseBody
 	public String mailCheckGET(String email) throws Exception {
 		/* 난수 생성 */
@@ -152,13 +147,13 @@ public class SkylifeJoinController {
 	}
 
 	// 회원 수정폼
-	@RequestMapping(value = "/auth/memUpdate", method = RequestMethod.GET)
+	@GetMapping("/auth/memUpdate")
 	public String memUpdateView() throws Exception {
 		return "/auth/memUpdate";
 	}
 
 	// 회원 수정 기능
-	@RequestMapping(value = "/memUpdate", method = RequestMethod.POST)
+	@PostMapping("/memUpdate")
 	public String memUpdate(Skylife vo, HttpServletResponse response, HttpSession session, RedirectAttributes redirectAttributes) throws Exception {
 		log.info("memUpdate vo: " + vo);
 		if(BCrypt.checkpw(vo.getPw(), service.getPW(vo)) != true) {		// 입력된 현재비밀번호 pw1과 db현재비밀번호 비교 : 비밀번호가 다르므로 돌려보냄
@@ -183,7 +178,7 @@ public class SkylifeJoinController {
 	}
 
 	// 회원 정보 중 비밀번호 수정 기능
-	@RequestMapping(value = "/memPWUpdate", method = RequestMethod.POST)
+	@PostMapping("/memPWUpdate")
 	public String memPWUpdate(HttpServletRequest request, HttpServletResponse response, Skylife vo, HttpSession session, RedirectAttributes redirectAttributes) throws Exception {
 		log.info("memPWUpdate >>> pw1: " + request.getParameter("pw1") + " pw2: " + request.getParameter("pw2"));
 		String pw1 = request.getParameter("pw1");
@@ -226,7 +221,7 @@ public class SkylifeJoinController {
 	}
 
 	// 임시 비밀번호 전송 폼
-	@RequestMapping(value = "page/emailPW", method = RequestMethod.GET)
+	@GetMapping("page/emailPW")
 	@ResponseBody
 	public String FindEmail(String email, Skylife vo, RedirectAttributes redirectAttributes) throws Exception {
 		/* 난수 생성 */

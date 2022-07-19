@@ -41,4 +41,7 @@ public interface SkylifeService {
 	// 회원 삭제
 	public boolean remove(String id);
 
+	//회원가입 이메일 전송
+	public String mailCheckGET(String email);
+
 }

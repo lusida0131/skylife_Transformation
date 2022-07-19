@@ -21,6 +21,7 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/pub/*")
 @AllArgsConstructor
 public class PubController {
+
 	private PubService service;
 	
 	// 공지사항 목록
@@ -34,6 +35,7 @@ public class PubController {
 	@GetMapping("/register")
 	public void register() {	
 	}
+
 	// 공지사항 기능
 	@PostMapping("/register")
 	public String register(PubVO pub, RedirectAttributes rttr) {
@@ -78,7 +80,7 @@ public class PubController {
 	
 	// 공지사항 수정
 	@GetMapping("/modify")
-	public void get(@RequestParam("pno") Integer pno, Model model) {
+	public void get(@RequestParam Integer pno, Model model) {
 		log.info("/modify : modify click");
 		model.addAttribute("pub", service.get(pno));
 	}

@@ -15,12 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import lombok.AllArgsConstructor;
 
 @Controller
-@AllArgsConstructor
 @Slf4j
-@RequestMapping
+//@RequestMapping("/board")
 public class BoardController {
 	
 	@Autowired
@@ -43,15 +41,15 @@ public class BoardController {
 
 	// 게시글 작성
 	@GetMapping("/page/boardWrite")
-	public String write(@ModelAttribute Skylife vo) {
+	public String write(Skylife vo) {
 		log.info("board write button click");
 		return "/board/boardWrite";
 	}
 	// 게시글 작성
 	@PostMapping("/page/boardWrite")
-	public String write1(@ModelAttribute BoardVO vo) {
+	public String write(@ModelAttribute BoardVO vo) {
 		service.insert(vo);
-		log.info("write success: " + vo);
+		log.info("write success={} " , vo);
 		
 		return "redirect:/board/board";
 	}
@@ -75,7 +73,8 @@ public class BoardController {
 
 	// 게시글 수정 폼
 	@GetMapping("/board/update")
-	public void updatePage(@RequestParam("b_num") Integer b_num, Model model) throws Exception {
+	public void updatePage(@RequestParam Integer b_num,  Model model) throws Exception {
+
 		model.addAttribute("blist", service.view(b_num));
 	}
 	
@@ -91,10 +90,9 @@ public class BoardController {
 
 	
 	// 게시글 삭제
-	@RequestMapping("board/delete")
+	@RequestMapping("/delete")
 	public String delete(@RequestParam int b_num) throws Exception {
 		service.delete(b_num);
-		
 		return "redirect:/board/board";
 	}
 	

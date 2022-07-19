@@ -63,11 +63,6 @@ public class BoardServiceImpl implements BoardService {
 		log.info("getList with Paging..." + cri);
 		return mapper.getListWithPaging(cri);
 	}
-
-	
-	
-	
-	
 	// 게시글 조회수
 	@Override
 	public boolean increaseViewcnt(int b_num) throws Exception {

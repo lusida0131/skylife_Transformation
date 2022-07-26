@@ -5,7 +5,6 @@ import javax.servlet.http.HttpSession;
 import com.skylife_Transformation.domain.PubVO;
 import com.skylife_Transformation.service.PubService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,7 +40,7 @@ public class PubController {
 	public String register(PubVO pub, RedirectAttributes rttr) {
 		log.info("register: " + pub);
 		service.register(pub);
-		rttr.addFlashAttribute("result", pub.getPno());
+		rttr.addFlashAttribute("result", pub.getP_title());
 		return "redirect:/pub/public";
 	}
 	

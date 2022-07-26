@@ -50,7 +50,6 @@ public class BoardController {
 	public String write(@ModelAttribute BoardVO vo) {
 		service.insert(vo);
 		log.info("write success={} " , vo);
-		
 		return "redirect:/board/board";
 	}
 	

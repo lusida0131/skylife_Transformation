@@ -117,7 +117,7 @@
 				if(r_contented != null && r_contented != ""){
 					$.ajax({
 						type:"POST",
-						url:"/comment",
+						url:"/reply/comment",
 						data: {
 							id : id,
 							b_num : b_num,
@@ -148,7 +148,7 @@
 					console.log("r_content : " + r_content_text);
 					$.ajax({
 						type:"POST",
-						url:"/replies/update",
+						url:"/reply/update",
 						data: {    
 							r_num : r_num,
 							r_content : r_content_text

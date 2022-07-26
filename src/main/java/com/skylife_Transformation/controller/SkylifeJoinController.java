@@ -5,7 +5,6 @@ import com.skylife_Transformation.domain.Skylife;
 import com.skylife_Transformation.mapper.SkylifeMapper;
 import com.skylife_Transformation.service.SkylifeService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -21,24 +20,17 @@ import javax.servlet.http.HttpSession;
 import java.io.PrintWriter;
 import java.util.Random;
 
-
 @Controller
 @Slf4j
 @RequestMapping(value = "/auth")
 public class SkylifeJoinController {
-	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-	@Autowired
 	private JavaMailSender mailSender;
 
-	@Autowired
 	private SkylifeService service;
 
-//	@Autowired
 //	private KakaoService kakaoService;
 
-	@Autowired
 	private SkylifeMapper skylifeMapper;
 
 	// 약관동의 폼
@@ -55,12 +47,9 @@ public class SkylifeJoinController {
 
 	// 회원 가입 폼
 	@PostMapping("/joinForm")
-	public String joinForm(Skylife skylife, RedirectAttributes redirectAttributes) {
-		String rawPassword = skylife.getPw();
-		String encodePassword = bCryptPasswordEncoder.encode(rawPassword);
-		skylife.setPw(encodePassword);
+	public String joinForm(Skylife skylife, RedirectAttributes rttr) {
 		service.register(skylife);
-		redirectAttributes.addFlashAttribute("msg", "REGISTERED");
+		rttr.addFlashAttribute("msg", "REGISTERED");
 		return "redirect:/auth/loginForm";
 	}
 	
@@ -72,7 +61,7 @@ public class SkylifeJoinController {
 
 	// 로그인 폼
 	@PostMapping("/loginForm")
-	public String loginForm(HttpSession session, Skylife skylife, Model model) throws Exception {
+	public String loginForm(HttpSession session, Skylife skylife) throws Exception {
 		Skylife user = service.Login(skylife);
 		if (user != null && BCrypt.checkpw(skylife.getPw(), user.getPw())) {
 			session.setAttribute("user", user);
@@ -92,22 +81,19 @@ public class SkylifeJoinController {
 	}
 
 	// 아이디 중복 체크 auth
-	@GetMapping(value = "/idCheck")
+	@GetMapping("/idCheck")
 	@ResponseBody
 	public String idCheck(HttpServletRequest request) {
 		String id = request.getParameter("id");
-		int result = service.idCheck(id);
-		return Integer.toString(result);
+		return Integer.toString(service.idCheck(id));
 	}
 
 	//***************** 이메일 중복체크 ********************** auth
 	@GetMapping("/emailhave")
 	@ResponseBody
 	public String emailhave(HttpServletRequest request) {
-
 		String email = request.getParameter("email");
-		int result = service.emailhave(email);
-		return Integer.toString(result);
+		return Integer.toString(service.emailhave(email));
 	}
 	//auth
 	@RequestMapping(value = "/")
@@ -144,9 +130,7 @@ public class SkylifeJoinController {
 			e.printStackTrace();
 		}
 
-		String num = Integer.toString(checkNum);
-
-		return num;
+		return Integer.toString(checkNum);
 	}
 
 	// 회원 수정폼
@@ -206,11 +190,11 @@ public class SkylifeJoinController {
 	// 회원 탈퇴 auth
 	@GetMapping("/memRemove")
 	public String remove1(@RequestParam("id") String id, HttpSession session, RedirectAttributes rttr) {
-		log.info("remove..." + id);
+		log.info("remove...", id);
 		if (service.remove(id)) {
 			rttr.addFlashAttribute("result", "success");
 		} else {
-			System.out.println("remove failed");
+			log.error("remove failed");
 		}
 		session.invalidate();
 		return "redirect:/";
@@ -270,10 +254,8 @@ public class SkylifeJoinController {
 
 	// 아이디 찾기
 	@PostMapping("/getID")
-	public String getID(HttpServletResponse response, @RequestParam("email") String email, Model md) throws Exception {
+	public String getID(HttpServletResponse response, @RequestParam String email, Model md) throws Exception {
 		md.addAttribute("id", service.findID(response, email));
 		return "/auth/getID";
 	}
-
-
 }

@@ -42,7 +42,7 @@
 					<c:forEach var="BoardVO" items="${list}">
 						<tr>
 							<td>${BoardVO.b_num}</td>
-							<td><a href="${pageContext.request.contextPath}/page/boardView?b_num=${BoardVO.b_num}">${BoardVO.b_title}</a></td>
+							<td><a href="${pageContext.request.contextPath}/board/boardView?b_num=${BoardVO.b_num}">${BoardVO.b_title}</a></td>
 							<td>${BoardVO.id}</td>
 							<td><fmt:formatDate value="${BoardVO.time}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 							<td>${BoardVO.rcount}</td>
@@ -87,7 +87,7 @@
 	$(document).ready(function() {
 		$("#btnWrite").click(function() {
 			// 페이지 주소 변경(이동)
-			location.href = "${pageContext.request.contextPath}/page/boardWrite";
+			location.href = "${pageContext.request.contextPath}/board/boardWrite";
 		});
 	});
 	
@@ -97,7 +97,7 @@
 <script>
 
 	$("#regBtn").on("click", function() {	// 등록 버튼이 눌리면 function()이 실행됨 : 버튼 이벤트 등록
-		self.location = "/page/boardWrite";
+		self.location = "/board/boardWrite";
 	});
 	
 	
@@ -114,7 +114,7 @@
 		e.preventDefault();
 		actionForm.append("<input type='hidden' name='b_num' value='"
 			+ $(this).attr("href") + "'>");	// this : <a 링크
-		actionForm.attr("action", "/page/board");
+		actionForm.attr("action", "/board/board");
 		actionForm.submit();
 	});
 

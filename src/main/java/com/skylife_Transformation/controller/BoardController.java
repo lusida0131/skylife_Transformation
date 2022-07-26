@@ -1,34 +1,29 @@
 package com.skylife_Transformation.controller;
 
 import java.util.List;
-
 import com.skylife_Transformation.domain.*;
 import com.skylife_Transformation.service.BoardService;
 import com.skylife_Transformation.service.ReplyService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @Slf4j
-//@RequestMapping("/board")
+@RequestMapping("/board")
 public class BoardController {
-	
-	@Autowired
+
 	BoardService service;
-	
-	@Autowired
-	ReplyService Replyservice;
+
+	ReplyService replyservice;
 
 	// 게시글 리스트
-	@GetMapping("/board/board")
+	@GetMapping("/board")
 	public void boardList(Criteria cri, Model model) {
 		log.info("list={}", cri);
 		model.addAttribute("list", service.list(cri));	// 게시글 목록
@@ -36,17 +31,16 @@ public class BoardController {
 		int total = service.getTotal(cri);
 		log.info("total={} " , total);
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
-
 	}
 
 	// 게시글 작성
-	@GetMapping("/page/boardWrite")
+	@GetMapping("/boardWrite")
 	public String write(Skylife vo) {
 		log.info("board write button click");
 		return "/board/boardWrite";
 	}
 	// 게시글 작성
-	@PostMapping("/page/boardWrite")
+	@PostMapping("/boardWrite")
 	public String write(@ModelAttribute BoardVO vo) {
 		service.insert(vo);
 		log.info("write success={} " , vo);
@@ -54,15 +48,15 @@ public class BoardController {
 	}
 	
 	// 게시글 조회
-	@GetMapping("/page/boardView")
-	public String view1(Model model,Criteria cri, @RequestParam int b_num) throws Exception {
+	@GetMapping("/boardView")
+	public String view1(Model model, Criteria cri, @RequestParam int b_num) throws Exception {
 		// 조회수
 		service.increaseViewcnt(b_num);
-		
 		BoardVO data = service.view(b_num);
 		model.addAttribute("data", data);
 		log.info("board: " + data);
-		List<ReplyVO> replyData = Replyservice.selectcomment(cri, b_num);
+		
+		List<ReplyVO> replyData = replyservice.selectcomment(cri, b_num);
 		model.addAttribute("replyData", replyData);
 		log.info("reply: " + replyData);;
 
@@ -71,14 +65,13 @@ public class BoardController {
 		
 
 	// 게시글 수정 폼
-	@GetMapping("/board/update")
+	@GetMapping("/update")
 	public void updatePage(@RequestParam Integer b_num,  Model model) throws Exception {
-
 		model.addAttribute("blist", service.view(b_num));
 	}
 	
 	// 게시글 수정 (기능)
-	@RequestMapping(value="/board/update", method=RequestMethod.POST)
+	@PostMapping("/update")
 	public String update(@ModelAttribute BoardVO vo) throws Exception {
 		log.info("board update success");
 		service.update(vo);
@@ -86,7 +79,6 @@ public class BoardController {
 		
 		return "redirect:/board/board";
 	}
-
 	
 	// 게시글 삭제
 	@RequestMapping("/delete")
@@ -94,6 +86,4 @@ public class BoardController {
 		service.delete(b_num);
 		return "redirect:/board/board";
 	}
-	
-
 }

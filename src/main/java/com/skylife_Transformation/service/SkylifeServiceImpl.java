@@ -17,12 +17,15 @@ public class SkylifeServiceImpl implements SkylifeService {
 	@Autowired
 	private SkylifeMapper mapper;
 
-
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	// 회원가입
 	@Override
 	public Skylife register(Skylife skylife) {
 		mapper.register(skylife);
+		String rawPassword = skylife.getPw();
+		String encodePassword = bCryptPasswordEncoder.encode(rawPassword);
+		skylife.setPw(encodePassword);
 		return skylife;
 	}
 

@@ -12,7 +12,7 @@
 
 <div class="container">
 	<div class="card" style="padding: 20px; border-radius: 15px; margin: 20px auto;">
-		<form name="form1" method="post" action="${pageContext.request.contextPath}/page/boardWrite">
+		<form name="form1" method="post" action="${pageContext.request.contextPath}/board/boardWrite">
 			<div class="form-group">
 				<div class="col-sm-12">
 					<p>제목

@@ -106,7 +106,7 @@
 		
 		$('#check').click(function(){
 			$.ajax({
-				url: "${pageContext.request.contextPath}/idCheck",
+				url: "${pageContext.request.contextPath}/auth/idCheck",
 				type: "GET",
 				data:{
 					"id":$('#id').val()

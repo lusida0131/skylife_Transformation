@@ -12,6 +12,7 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mail.javamail.JavaMailSender;
 
 import java.sql.Date;
 
@@ -21,6 +22,9 @@ public class SkylifeServiceTest {
 
     @Autowired
     private SkylifeMapper mapper;
+
+    @Autowired
+    private JavaMailSender mailSender;
 
     @Test
     void 회원가입() throws Exception {
@@ -38,5 +42,10 @@ public class SkylifeServiceTest {
     @Test
     void 로그인() throws Exception {
 
+    }
+
+    @Test
+    void 회원가입이메일() {
+        mailSender
     }
 }

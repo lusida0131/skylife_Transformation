@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCrypt;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +30,7 @@ public class SkylifeJoinController {
 
 //	private KakaoService kakaoService;
 
-	private SkylifeMapper skylifeMapper;
+//	private SkylifeMapper skylifeMapper;
 
 	// 약관동의 폼
 	@GetMapping("/joinAgree")
@@ -85,7 +84,8 @@ public class SkylifeJoinController {
 	@ResponseBody
 	public String idCheck(HttpServletRequest request) {
 		String id = request.getParameter("id");
-		return Integer.toString(service.idCheck(id));
+		int result = service.idCheck(id);
+		return Integer.toString(result);
 	}
 
 	//***************** 이메일 중복체크 ********************** auth
@@ -107,30 +107,31 @@ public class SkylifeJoinController {
 	@ResponseBody
 	public String mailCheckGET(String email) throws Exception {
 		/* 난수 생성 */
-		Random random = new Random();
-		int checkNum = random.nextInt(888888) + 111111;
-		log.info("인증번호" + checkNum);
-
-		/* 메일 보내기 */
-		String setFrom = "sktlifemailsender@gmail.com";
-		String toMail = email;
-		String title = "회원가입 인증메일입니다.";
-		String content = "홈페이지를 방문해주셔서 감사합니다." + "<br><br>" + "인증 번호는 " + checkNum + "입니다." + "<br>"
-				+ "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
-		try {
-			MimeMessage message = mailSender.createMimeMessage();
-			MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
-			helper.setFrom(setFrom);
-			;
-			helper.setTo(toMail);
-			helper.setSubject(title);
-			helper.setText(content, true);
-			mailSender.send(message);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return Integer.toString(checkNum);
+//		Random random = new Random();
+//		int checkNum = random.nextInt(888888) + 111111;
+//		log.info("인증번호" + checkNum);
+//
+//		/* 메일 보내기 */
+//		String setFrom = "sktlifemailsender@gmail.com";
+//		String toMail = email;
+//		String title = "회원가입 인증메일입니다.";
+//		String content = "홈페이지를 방문해주셔서 감사합니다." + "<br><br>" + "인증 번호는 " + checkNum + "입니다." + "<br>"
+//				+ "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
+//		try {
+//			MimeMessage message = mailSender.createMimeMessage();
+//			MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+//			helper.setFrom(setFrom);
+//			;
+//			helper.setTo(toMail);
+//			helper.setSubject(title);
+//			helper.setText(content, true);
+//			mailSender.send(message);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//
+//		return Integer.toString(checkNum);
+		return service.mailCheckGET(email);
 	}
 
 	// 회원 수정폼

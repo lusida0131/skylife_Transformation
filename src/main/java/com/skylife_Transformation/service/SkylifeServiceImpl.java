@@ -4,11 +4,14 @@ import com.skylife_Transformation.domain.Skylife;
 import com.skylife_Transformation.mapper.SkylifeMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
-import java.util.List;
+import java.util.Random;
 
 @Slf4j
 @Service
@@ -16,6 +19,8 @@ public class SkylifeServiceImpl implements SkylifeService {
 
 	@Autowired
 	private SkylifeMapper mapper;
+
+	private JavaMailSender mailSender;
 
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -103,11 +108,32 @@ public class SkylifeServiceImpl implements SkylifeService {
 		return mapper.delete(id);
 	}
 
+	// 회원 가입 이메일 전송
 	@Override
 	public String mailCheckGET(String email) {
+		/* 난수 생성 */
+		Random random = new Random();
+		int checkNum = random.nextInt(888888) + 111111;
+		log.info("인증번호" + checkNum);
 
-		return null;
+		/* 메일 보내기 */
+		String setFrom = "sktlifemailsender@gmail.com";
+		String toMail = email;
+		String title = "회원가입 인증메일입니다.";
+		String content = "홈페이지를 방문해주셔서 감사합니다." + "<br><br>" + "인증 번호는 " + checkNum + "입니다." + "<br>"
+				+ "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
+		try {
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+			helper.setFrom(setFrom);
+			;
+			helper.setTo(toMail);
+			helper.setSubject(title);
+			helper.setText(content, true);
+			mailSender.send(message);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Integer.toString(checkNum);
 	}
-
-
 }

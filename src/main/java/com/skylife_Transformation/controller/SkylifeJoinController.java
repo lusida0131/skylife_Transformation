@@ -2,8 +2,8 @@ package com.skylife_Transformation.controller;
 
 
 import com.skylife_Transformation.domain.Skylife;
-import com.skylife_Transformation.mapper.SkylifeMapper;
 import com.skylife_Transformation.service.SkylifeService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -21,12 +21,13 @@ import java.util.Random;
 
 @Controller
 @Slf4j
+@RequiredArgsConstructor
 @RequestMapping(value = "/auth")
 public class SkylifeJoinController {
 
 	private JavaMailSender mailSender;
 
-	private SkylifeService service;
+	private final SkylifeService service;
 
 //	private KakaoService kakaoService;
 

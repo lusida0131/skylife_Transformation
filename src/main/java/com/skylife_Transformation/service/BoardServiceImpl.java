@@ -1,17 +1,13 @@
 package com.skylife_Transformation.service;
 
 import java.util.List;
-
 import com.skylife_Transformation.domain.BoardVO;
 import com.skylife_Transformation.domain.Criteria;
 import com.skylife_Transformation.mapper.BoardMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
 import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j;
 
 @AllArgsConstructor
 @Slf4j
@@ -68,7 +64,4 @@ public class BoardServiceImpl implements BoardService {
 	public boolean increaseViewcnt(int b_num) throws Exception {
 		return mapper.increaseViewcnt(b_num);
 	}
-
-
-	
 }

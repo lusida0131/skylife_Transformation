@@ -2,8 +2,8 @@ package com.skylife_Transformation.service;
 
 import com.skylife_Transformation.domain.Skylife;
 import com.skylife_Transformation.mapper.SkylifeMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,23 +14,23 @@ import java.io.PrintWriter;
 import java.util.Random;
 
 @Slf4j
+@RequiredArgsConstructor
 @Service
 public class SkylifeServiceImpl implements SkylifeService {
 
-	@Autowired
-	private SkylifeMapper mapper;
+	private final SkylifeMapper mapper;
 
-	private JavaMailSender mailSender;
+	private final JavaMailSender mailSender;
 
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	// 회원가입
 	@Override
 	public Skylife register(Skylife skylife) {
-		mapper.register(skylife);
 		String rawPassword = skylife.getPw();
 		String encodePassword = bCryptPasswordEncoder.encode(rawPassword);
 		skylife.setPw(encodePassword);
+		mapper.register(skylife);
 		return skylife;
 	}
 

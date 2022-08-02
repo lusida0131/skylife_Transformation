@@ -128,7 +128,7 @@
 		// 이메일 중복 체크
 		$('#echeck').click(function(){
 			$.ajax({
-				url: "${pageContext.request.contextPath}/emailhave",
+				url: "${pageContext.request.contextPath}/auth/emailhave",
 				type: "GET",
 				data:{
 					"email":$('#email').val()

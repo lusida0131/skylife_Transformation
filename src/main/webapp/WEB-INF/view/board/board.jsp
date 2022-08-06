@@ -7,9 +7,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css" />
 <script src="${pageContext.request.contextPath}/resources/js/board.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
-	
-
 	<div class="container" style="margin-top:30px; margin-bottom:30px;">
 		<div class="table-responsive">
 			<div class="col-md-3" style="float: right">

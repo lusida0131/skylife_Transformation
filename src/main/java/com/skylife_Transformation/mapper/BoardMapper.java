@@ -22,7 +22,7 @@ public interface BoardMapper {
 	public void delete(int b_num);
 	
 	// 게시글 리스트
-	public List<BoardVO> list(BoardVO vo);
+	public List<BoardVO> list(String vo);
 	
 	// 게시글 목록(페이징)
 	public List<BoardVO> getListWithPaging(Criteria cri);

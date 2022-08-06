@@ -46,6 +46,6 @@ public class SkylifeServiceTest {
 
     @Test
     void 회원가입이메일() {
-        mailSender
+
     }
 }

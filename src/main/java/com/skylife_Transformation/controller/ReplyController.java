@@ -4,6 +4,7 @@ import com.skylife_Transformation.domain.Criteria;
 import com.skylife_Transformation.domain.ReplyPageDTO;
 import com.skylife_Transformation.domain.ReplyVO;
 import com.skylife_Transformation.service.ReplyService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +13,11 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("/reply")
 public class ReplyController {
 
-	private ReplyService service;
+	private final ReplyService service;
 
 	// 댓글 페이징
 	@GetMapping(value = "/pages/{b_num}/{page}")

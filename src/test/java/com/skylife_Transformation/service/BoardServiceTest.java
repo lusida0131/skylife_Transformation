@@ -9,32 +9,32 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 public class BoardServiceTest {
-
-    @Mock
-    BoardMapper boardMapper;
-
-    @InjectMocks
-    private BoardService boardService;
-
-    @Test
-    void 게시글보기Test() {
-        //given
-
-        //stub
-
-        //when
-
-        //then
-    }
-    @Test
-    void  책등록() {
-        //given
-
-        //stub
-        //when(boardMapper.insert(any())).thenReturn(dto.toEntity());
-        //when
-
-        //then
-
-    }
+//
+//    @Mock
+//    BoardMapper boardMapper;
+//
+//    @InjectMocks
+//    private BoardService boardService;
+//
+//    @Test
+//    void 게시글보기Test() {
+//        //given
+//
+//        //stub
+//
+//        //when
+//
+//        //then
+//    }
+//    @Test
+//    void  책등록() {
+//        //given
+//
+//        //stub
+//        //when(boardMapper.insert(any())).thenReturn(dto.toEntity());
+//        //when
+//
+//        //then
+//
+//    }
 }

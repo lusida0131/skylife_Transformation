@@ -3,7 +3,9 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'org.asciidoctor.convert' version '1.5.8'
 	id 'java'
+	id 'war' // 추가
 }
+apply plugin: 'war'  // 추가
 
 group = 'com'
 version = '0.0.1-SNAPSHOT'
@@ -49,6 +51,7 @@ tasks.named('asciidoctor') {
 	inputs.dir snippetsDir
 	dependsOn test
 }
+
 jar {
 	enabled = false
 }

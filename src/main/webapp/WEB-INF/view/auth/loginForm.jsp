@@ -73,7 +73,7 @@
 
 					<!--계정이 없으신가요?-->
 					<div class="login__register">
-						<span>찐막 ;ㅣㅣ;진짜 마지막 ci cd 계정이 없으신가요?</span> <a href="../auth/joinAgree">가입하기 ci/cd 테스트중입니다.</a>
+						<span>찐막 ;;ci/cd 성공???짜 마지막 ci cd 계정이 없으신가요?</span> <a href="../auth/joinAgree">가입하기 ci/cd 테스트중입니다.</a>
 					</div>
 
 					<!--계정이 없으신가요?end-->

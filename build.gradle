@@ -33,6 +33,9 @@ dependencies {
 	implementation 'javax.servlet:jstl'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
 	implementation 'org.jsoup:jsoup:1.14.2'
+	// slf4j & logback
+	implementation 'org.slf4j:jcl-over-slf4j'
+	implementation 'ch.qos.logback:logback-classic'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'mysql:mysql-connector-java'
 	annotationProcessor 'org.projectlombok:lombok'

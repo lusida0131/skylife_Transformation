@@ -1,22 +1,24 @@
-erver:
-  port: 8080
-  servlet:
-  context-path: /
-  encoding:
-    charset: UTF-8
-    enabled: true
-    force: true
-
-spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql:3306/skylife?useSSL=false
-    username: root
-    password: 12341234
-
-  jpa:
-    hibernate:
-      ddl-auto: update #create update none
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    show-sql: true
+#server:
+#  port: 8080
+#  servlet:
+#  context-path: /
+#  encoding:
+#    charset: UTF-8
+#    enabled: true
+#    force: true
+#
+#spring:
+#  profiles:
+#    active: prod
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://mysql:3306/skylife?useSSL=false
+#    username: root
+#    password: 12341234
+#
+#  jpa:
+#    hibernate:
+#      ddl-auto: update #create update none
+#      naming:
+#        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+#    show-sql: true
